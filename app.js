@@ -5,10 +5,11 @@ const router = express.Router();
 const passport = require('passport');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
-const db = require('./db');
-require('./passport-config')(passport);
+const db = require('./config/db');
+require('./config/passport-config')(passport);
 
 //router
+const loginRouter = require('./routes/login')
 const indexRouter = require('./routes/index');
 const noteRouter = require('./routes/note');
 const adminRouter = require('./routes/admin');
@@ -26,6 +27,7 @@ app.use(passport.session());
 
 //본체
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
 app.use('/admin', adminRouter);
 app.use('/note', noteRouter);
 app.use((res, req, next) => {
