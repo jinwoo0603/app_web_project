@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const router = express.Router();
+const nunjucks = require('nunjucks');
 const passport = require('passport');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
@@ -15,7 +16,7 @@ const noteRouter = require('./routes/note');
 const adminRouter = require('./routes/admin');
 
 //view engine과 public파일
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 app.set('views', './views');
 app.use(express.static('public'));
 
