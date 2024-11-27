@@ -17,12 +17,11 @@ const adminRouter = require('./routes/admin');
 
 //view engine과 public파일
 app.set('view engine', 'html');
-nunjucks.configure('./views', { // views폴더가 넌적스파일의 위치가 됨
+app.use(express.static('public'));
+nunjucks.configure('./views', {
   express: app,
   watch: true,
 });
-//app.set('views', './views');
-app.use(express.static('public'));
 
 //passport관련 middleware 설정
 app.use(express.urlencoded({ extended: false }));
