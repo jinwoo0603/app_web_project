@@ -10,8 +10,10 @@
         <label for="set-title">Title : </label>
         <input type="text" name="set-title" id="set-title">
         <input type="submit" value="Upload">
-        <textarea name="content" id="content" form="writer"></textarea>
+        <textarea name="content" id="content" form="writer">{{content}}</textarea>
         <iframe id="preview"></iframe>
     </form>
 </body>
 </html>
+<!--이후 수정사항 :
+edit인 경우에는 글을, write인 경우에는 빈 문자열 render-->
