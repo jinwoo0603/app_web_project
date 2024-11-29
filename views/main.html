@@ -23,7 +23,7 @@
             {% for note in notes %}
                 <div class="note-container">
                     <p>{{note.title}}</p>
-                    <a href="/note/{{note.id}}">열기</a>
+                    <a href="/note/{{note.link}}">열기</a>
                     <input type="button" name="delete" value="삭제">
                     <input type="button" name="edit" value="수정">
                 </div>

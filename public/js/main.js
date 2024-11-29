@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // "Write new Note" 버튼 클릭 시
     const writeButton = document.getElementById('write');
     writeButton.addEventListener('click', () => {
-        window.location.href = '/note/new'; // 새로운 노트 작성 페이지로 이동
+        window.location.href = '/note'; // 새로운 노트 작성 페이지로 이동
     });
 
     // "Sign Out" 버튼 클릭 시
