@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 document.addEventListener('DOMContentLoaded', () => {
     // "Write new Note" 버튼 클릭 시
     const writeButton = document.getElementById('write');

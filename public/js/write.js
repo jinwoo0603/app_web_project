@@ -1,3 +1,5 @@
+const marked = require('marked');
+
 document.addEventListener('DOMContentLoaded', () => {
     const content = document.getElementById('content'); // textarea 요소 선택
     const previewFrame = document.getElementById('preview'); // iframe 요소 선택
