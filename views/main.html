@@ -9,8 +9,8 @@
 <body>
     <header>
         <div id="account-info">
-            <p id="account-name">{{user.name}}</p>
-            <p id="page-count">{{user.noteCount}}</p>
+            <p id="account-name">{{userName}}</p>
+            <p id="page-count">{{noteCount}}</p>
         </div>
         <div id="account-management">
             <button type="button" id="write">Write new Note</button>
@@ -23,7 +23,7 @@
             {% for note in notes %}
                 <div class="note-container">
                     <p>{{note.title}}</p>
-                    <a href="/note/{{note.link}}">열기</a>
+                    <a href="/note/{{note.id}}">열기</a>
                     <input type="button" name="delete" value="삭제">
                     <input type="button" name="edit" value="수정">
                 </div>
