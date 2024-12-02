@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
-const marked = require('marked');
+const { marked } = require('marked');
 
 router.get('/', (req, res) => {
-    res.render('write', { method:"post", title:"", content: "" });
+    res.render('write', { noteId:"", title:"", content: "" });
 });
 //views 폴더의 write에 매개변수로 {content:""}를 렌더
 
@@ -46,7 +46,7 @@ router.get('/:noteId', async (req, res) => {
     try {
         // notes 테이블에서 해당 ID에 해당하는 title과 content 가져오기
         const [rows] = await db.query('SELECT title, content FROM notes WHERE id = ?', [noteId]);
-
+        console.log('Query Result:', rows);
         if (rows.length === 0) {
             return res.status(404).send('Note not found.');
         }
@@ -66,7 +66,7 @@ router.get('/:noteId', async (req, res) => {
 //views 폴더의 doc에 매개변수로 {title:title, content:content}를 렌더
 
 // 노트 수정 라우터
-router.put('/:noteId', async (req, res) => {
+router.post('/:noteId', async (req, res) => {
     const noteId = req.params.noteId; // URL에서 noteId 가져오기
     const { title, content } = req.body; // 요청 본문에서 title과 content 가져오기
 
@@ -129,7 +129,7 @@ router.get('/:noteId/edit', async (req, res) => {
         const content = rows[0].content; // 마크다운 원본 그대로 사용
 
         // write 템플릿 렌더링
-        res.render('write', { method:"put", title: title, content: content });
+        res.render('write', { noteId:'/' + noteId, title: title, content: content });
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while fetching the note for editing.');

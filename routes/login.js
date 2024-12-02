@@ -27,10 +27,10 @@ router.get('/register', (req, res) => {
 
 // 회원가입 POST 요청
 router.post('/register', async (req, res) => {
-  const { name, password, passwordCheck, phoneNumber, email } = req.body;
+  const { name, password, passwordCheck, email } = req.body;
 
   // 입력값 유효성 검사
-  if (!name || !password || !passwordCheck || !phoneNumber || !email) {
+  if (!name || !password || !passwordCheck || !email) {
     return res.status(400).send('빈 칸을 모두 입력해주세요.');
   }
 
@@ -44,8 +44,8 @@ router.post('/register', async (req, res) => {
 
     // 사용자 추가 쿼리 실행
     await db.query(
-      'INSERT INTO users (name, password, phone_number, email) VALUES (?, ?, ?, ?)',
-      [name, hashedPassword, phoneNumber, email]
+      'INSERT INTO users (name, password, email) VALUES (?, ?, ?)',
+      [name, hashedPassword, email]
     );
 
     // 성공 시 로그인 페이지로 리디렉션
@@ -53,7 +53,7 @@ router.post('/register', async (req, res) => {
   } catch (error) {
     // 이메일 또는 기타 중복 오류 처리
     if (error.code === 'ER_DUP_ENTRY') {
-      res.status(400).send('이메일 또는 전화번호가 이미 존재합니다.');
+      res.status(400).send('이메일이 이미 존재합니다.');
     } else {
       res.status(500).send('에러 발생. 나중에 다시 시도해주세요.');
     }

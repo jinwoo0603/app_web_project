@@ -31,4 +31,22 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.post('/logout', (req, res) => {
+    if (req.isAuthenticated()) {
+        // Passport.js 세션 초기화
+        req.logout((err) => {
+            if (err) {
+                console.error('Logout error:', err);
+                return res.status(500).send('An error occurred while logging out.');
+            }
+
+            // 로그아웃 성공 시 응답
+            res.status(200).send('Logged out successfully.');
+        });
+    } else {
+        // 이미 인증되지 않은 상태
+        res.status(400).send('You are not logged in.');
+    }
+});
+
 module.exports = router;

@@ -13,15 +13,18 @@ function isAdmin(req, res, next) {
 // 관리자 대시보드
 router.get('/', isAdmin, async (req, res) => {
     try {
-        // 모든 유저와 노트 개수 가져오기
+        // 모든 유저 가져오기
         const [users] = await db.query(`
-            SELECT users.id, users.name, users.email, COUNT(notes.id) AS noteCount
-            FROM users
+            SELECT users.id, users.name, users.email FROM users
             LEFT JOIN notes ON users.id = notes.userId
             GROUP BY users.id
         `);
+        const [notes] = await db.query(`
+            SELECT notes.id, notes.userId, notes.title FROM notes
+            GROUP BY notes.id
+        `);
 
-        res.render('admin', { users });
+        res.render('admin', { users, notes });
     } catch (error) {
         console.error('Error fetching admin data:', error);
         res.status(500).send('An error occurred while loading the admin page.');

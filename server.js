@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const router = express.Router();
+const path = require('path');
 const nunjucks = require('nunjucks');
 const passport = require('passport');
 const session = require('express-session');
@@ -17,7 +18,7 @@ const adminRouter = require('./routes/admin');
 
 //view engine과 public파일
 app.set('view engine', 'html');
-app.use(express.static('public'));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 nunjucks.configure('./views', {
   express: app,
   watch: true,
@@ -35,7 +36,7 @@ app.use('/login', loginRouter);
 app.use('/admin', adminRouter);
 app.use('/note', noteRouter);
 app.use((res, req, next) => {
-  res.statusCode(404).send('Not Found')
+  res.status(404).send('Not Found')
 })
 
 app.listen(port, () => {

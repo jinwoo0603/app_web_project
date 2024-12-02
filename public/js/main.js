@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 document.addEventListener('DOMContentLoaded', () => {
     // "Write new Note" 버튼 클릭 시
     const writeButton = document.getElementById('write');
@@ -27,12 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', async (event) => {
             const noteContainer = event.target.closest('.note-container');
             const noteId = noteContainer.querySelector('a').href.split('/').pop(); // 노트 ID 추출
-
+            console.log(noteId);
             if (confirm('Are you sure you want to delete this note?')) {
                 try {
                     const response = await axios.delete(`/note/${noteId}`);
                     if (response.status === 200) {
                         noteContainer.remove(); // 노트 UI에서 삭제
+                        // 페이지 카운트 감소 처리
+                        const pageCountElement = document.getElementById('page-count');
+                        if (pageCountElement) {
+                            const currentCount = parseInt(pageCountElement.textContent, 10);
+                            if (!isNaN(currentCount) && currentCount > 0) {
+                                pageCountElement.textContent = currentCount - 1; // 1 감소
+                            }
+                        }
                         alert('Note deleted successfully.');
                     }
                 } catch (error) {
