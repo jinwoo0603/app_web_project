@@ -33,10 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         noteContainer.remove(); // 노트 UI에서 삭제
                         // 페이지 카운트 감소 처리
                         const pageCountElement = document.getElementById('page-count');
-                        if (pageCountElement) {
-                            const currentCount = parseInt(pageCountElement.textContent, 10);
+                        const pageCount = pageCountElement.textContent.split(' ').pop();
+                        if (pageCount) {
+                            const currentCount = parseInt(pageCount, 10);
                             if (!isNaN(currentCount) && currentCount > 0) {
-                                pageCountElement.textContent = currentCount - 1; // 1 감소
+                                pageCountElement.textContent = pageCountElement.textContent.slice(0, -1) + (currentCount - 1); // 1 감소
                             }
                         }
                         alert('Note deleted successfully.');
